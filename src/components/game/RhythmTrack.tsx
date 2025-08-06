@@ -30,8 +30,8 @@ export const RhythmTrack = ({ beats, currentTime, onBeatHit, onBeatMiss }: Rhyth
       
       // Check for hits
       const visibleBeats = beats.filter(beat => {
-        const beatPosition = (beat.time - currentTime) * 100;
-        return beatPosition >= -50 && beatPosition <= 50 && beat.lane === lane;
+        const beatPosition = (beat.time - currentTime) * 60;
+        return beatPosition >= -30 && beatPosition <= 30 && beat.lane === lane;
       });
       
       if (visibleBeats.length > 0) {
@@ -41,7 +41,7 @@ export const RhythmTrack = ({ beats, currentTime, onBeatHit, onBeatMiss }: Rhyth
           return beatPos < closestPos ? beat : closest;
         });
         
-        const accuracy = Math.max(0, 100 - Math.abs((closestBeat.time - currentTime) * 100));
+        const accuracy = Math.max(0, 100 - Math.abs((closestBeat.time - currentTime) * 60));
         onBeatHit(closestBeat.id, accuracy);
       }
     }
@@ -55,7 +55,7 @@ export const RhythmTrack = ({ beats, currentTime, onBeatHit, onBeatMiss }: Rhyth
   // Check for missed beats
   useEffect(() => {
     beats.forEach(beat => {
-      if (beat.time < currentTime - 0.5) {
+      if (beat.time < currentTime - 0.8) {
         onBeatMiss(beat.id);
       }
     });
@@ -86,7 +86,7 @@ export const RhythmTrack = ({ beats, currentTime, onBeatHit, onBeatMiss }: Rhyth
       
       {/* Beats */}
       {beats.map(beat => {
-        const beatPosition = (beat.time - currentTime) * 100;
+        const beatPosition = (beat.time - currentTime) * 60;
         const isVisible = beatPosition >= -10 && beatPosition <= 100;
         
         if (!isVisible) return null;

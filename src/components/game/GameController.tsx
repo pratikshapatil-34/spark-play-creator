@@ -71,10 +71,10 @@ export const GameController = () => {
   // Generate beats pattern
   const generateBeats = useCallback((level: number) => {
     const newBeats: Beat[] = [];
-    const density = Math.min(level * 0.5 + 1, 4); // Increase density with level
+    const density = Math.min(level * 0.3 + 0.8, 2.5); // Slower density increase
     const duration = 60;
     
-    for (let time = 2; time < duration; time += 60 / (density * 16)) {
+    for (let time = 3; time < duration; time += 60 / (density * 10)) {
       const beatType = Math.random() < 0.3 ? 'code' : Math.random() < 0.1 ? 'special' : 'normal';
       newBeats.push({
         id: `beat-${time}-${Math.random()}`,
